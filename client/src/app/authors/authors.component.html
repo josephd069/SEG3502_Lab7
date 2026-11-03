@@ -1,0 +1,76 @@
+
+<div class="container py-4">
+
+  <h2 class="mb-3">Recherche d'auteurs</h2>
+
+  <p class="text-muted">
+    Entrez l'identifiant d'un auteur pour consulter ses informations.
+  </p>
+
+  <form
+    (ngSubmit)="searchAuthor(authorId.value)"
+    class="mb-4"
+  >
+    <div class="mb-3">
+      <label for="authorId" class="form-label">
+        ID de l'auteur
+      </label>
+
+      <input
+        type="number"
+        id="authorId"
+        #authorId
+        class="form-control"
+        min="1"
+        required
+        placeholder="Exemple : 1"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      Rechercher
+    </button>
+  </form>
+
+  <div *ngIf="loading" class="alert alert-info">
+    Recherche en cours...
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="author as selected" class="card shadow-sm">
+
+    <div class="card-header bg-primary text-white">
+      Informations de l'auteur
+    </div>
+
+    <div class="card-body">
+
+      <p><strong>ID :</strong> {{ selected.id }}</p>
+
+      <p>
+        <strong>Prénom :</strong>
+        {{ selected.firstName }}
+      </p>
+
+      <p>
+        <strong>Nom :</strong>
+        {{ selected.lastName }}
+      </p>
+
+      <div *ngIf="selected.books?.length">
+        <h5>Livres associés</h5>
+
+        <ul>
+          <li *ngFor="let book of selected.books">
+            {{ book.title }}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+</div>
