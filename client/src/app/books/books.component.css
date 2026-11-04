@@ -1,0 +1,70 @@
+
+.books-page {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  color: #167a79;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  font-weight: 800;
+}
+
+h1 {
+  color: #1a3346;
+  margin: 10px 0;
+}
+
+p {
+  color: #617686;
+  line-height: 1.7;
+}
+
+.book-search {
+  padding: 22px;
+  background: #f5fbf9;
+  border: 1px solid #dceae7;
+  border-radius: 16px;
+  margin: 20px 0;
+}
+
+label {
+  display: block;
+  color: #234457;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.search-row {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  min-width: 0;
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #c9d8dc;
+  border-radius: 9px;
+}
+
+button {
+  border: 0;
+  border-radius: 9px;
+  padding: 12px 20px;
+  background: #167a79;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #105e5d;
+}
+
+@media (max-width: 540px) {
+  .search-row {
+    flex-direction: column;
+  }
+}

@@ -1,22 +1,36 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute, Router, Routes, RouterOutlet } from '@angular/router';
-import {BookComponent} from './book/book.component';
 
-export const booksRoutes: Routes = [
-  {path: ':id', component: BookComponent}
-];
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import {
+  ActivatedRoute,
+  Router,
+  RouterOutlet
+} from '@angular/router';
 
 @Component({
-    selector: 'app-books',
-    templateUrl: './books.component.html',
-    styleUrls: ['./books.component.css'],
-    standalone: true,
-    imports: [RouterOutlet]
+  selector: 'app-books',
+  templateUrl: './books.component.html',
+  styleUrls: ['./books.component.css'],
+  standalone: true,
+  imports: [RouterOutlet, FormsModule]
 })
 export class BooksComponent {
-  constructor(private router: Router, private route: ActivatedRoute) { }
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   submit(value: string): void {
-    this.router.navigate(['./', value], {relativeTo: this.route}).then(r => {});
+    const id = Number(value);
+
+    if (!Number.isInteger(id) || id <= 0) {
+      return;
+    }
+
+    this.router.navigate(
+      [id],
+      { relativeTo: this.route }
+    );
   }
 }

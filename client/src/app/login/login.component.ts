@@ -1,46 +1,65 @@
+
 import { Component } from '@angular/core';
-import {AuthenticationService} from '../authentication.service';
-import {Router} from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css'],
-    standalone: true,
-    imports: [NgIf, FormsModule]
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
+  standalone: true,
+  imports: [NgIf, FormsModule]
 })
 export class LoginComponent {
+
   username = '';
   password = '';
-  message!: string;
+  message = '';
 
-  constructor(private router: Router,
-              private loginService: AuthenticationService) { }
+  constructor(
+    private router: Router,
+    private auth: AuthenticationService
+  ) {}
 
   get isLoggedIn(): boolean {
-    return this.loginService.isLoggedIn();
+    return this.auth.isLoggedIn();
   }
 
   get loggedUser(): string {
-    return this.loginService.getUser();
+    return this.auth.getUser() ?? '';
   }
 
-  checkLogin(): boolean {
+  checkLogin(): void {
+
     this.message = '';
-    if (!this.loginService.login(this.username, this.password)) {
-      this.message = 'Invalid Login';
-      setTimeout(() => {
-        this.message = '';
-      }, 2500);
-      return false;
+
+    if (!this.auth.login(this.username, this.password)) {
+
+      this.message =
+        'Identifiant ou mot de passe incorrect.';
+
+      return;
     }
-    return true;
+
+    const destination =
+      this.auth.redirectUrl || '/admin';
+
+    this.auth.redirectUrl = null;
+    this.password = '';
+
+    this.router.navigateByUrl(destination);
   }
 
-  logout(): boolean {
-    this.loginService.logout();
-    return true;
+  logout(): void {
+
+    this.auth.logout();
+
+    this.username = '';
+    this.password = '';
+
+    this.router.navigateByUrl('/login');
   }
 }

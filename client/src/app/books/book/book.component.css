@@ -1,0 +1,65 @@
+
+.book-result {
+  margin-top: 20px;
+}
+
+.book-card {
+  border: 1px solid #e0e9ed;
+  border-radius: 16px;
+  padding: 24px;
+  background: #fff;
+}
+
+.eyebrow {
+  color: #167a79;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+h2 {
+  margin: 10px 0 22px;
+  color: #1a3346;
+}
+
+dl {
+  margin: 0;
+}
+
+dl div {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid #edf1f4;
+}
+
+dt {
+  color: #637c89;
+}
+
+dd {
+  margin: 0;
+  color: #234457;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.message {
+  padding: 14px;
+  border-radius: 10px;
+  background: #e7f6f9;
+  color: #175a68;
+}
+
+.error {
+  background: #fff0f0;
+  color: #8d2d38;
+}
+
+@media (max-width: 500px) {
+  dl div {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}

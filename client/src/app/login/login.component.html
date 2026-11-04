@@ -1,23 +1,94 @@
-<div class="alert alert-danger" role="alert" *ngIf="message">
-  {{ message }}
-</div>
 
-<div class="container" *ngIf="!isLoggedIn">
-  <div class="mb-2">
-    <label for="username" class="form-label">UserName : </label>
-    <input type="text" name="username" id="username" [(ngModel)]="username" class="form-control">
+<section class="login-page">
+
+  <span class="eyebrow">
+    ESPACE ADMINISTRATION
+  </span>
+
+  <h1>Connexion</h1>
+
+  <p>
+    Connectez-vous pour accéder au formulaire
+    d'administration des livres.
+  </p>
+
+  <p
+    *ngIf="message"
+    class="notice notice-error"
+    role="alert"
+  >
+    {{ message }}
+  </p>
+
+  <!-- Formulaire de connexion -->
+
+  <form
+    *ngIf="!isLoggedIn"
+    (ngSubmit)="checkLogin()"
+    #loginForm="ngForm"
+    class="login-card"
+  >
+
+    <label for="username">
+      Nom d'utilisateur
+    </label>
+
+    <input
+      id="username"
+      name="username"
+      type="text"
+      [(ngModel)]="username"
+      required
+      autocomplete="username"
+    >
+
+    <label for="password">
+      Mot de passe
+    </label>
+
+    <input
+      id="password"
+      name="password"
+      type="password"
+      [(ngModel)]="password"
+      required
+      autocomplete="current-password"
+    >
+
+    <button
+      type="submit"
+      [disabled]="loginForm.invalid"
+    >
+      Se connecter
+    </button>
+
+    <p class="demo-note">
+      Compte local de démonstration :
+      <strong>admin</strong> /
+      <strong>password</strong>.
+    </p>
+
+  </form>
+
+  <!-- Utilisateur connecté -->
+
+  <div
+    *ngIf="isLoggedIn"
+    class="login-card"
+  >
+
+    <p>
+      Vous êtes connecté en tant que
+      <strong>{{ loggedUser }}</strong>.
+    </p>
+
+    <button
+      type="button"
+      (click)="logout()"
+    >
+      Se déconnecter
+    </button>
+
   </div>
-  <div class="mb-2">
-    <label for="password" class="form-label">Password  : </label>
-    <input type="password" name="password" id="password" [(ngModel)]="password" class="form-control">
-  </div>
-  <button (click)=checkLogin() class="btn btn-success">
-    Login
-  </button>
-</div>
-<div class="form-group" *ngIf="isLoggedIn">
-  <p>Logged in as <b>{{ loggedUser }}</b></p>
-  <button (click)=logout() class="btn btn-danger">
-    Log out
-  </button>
-</div>
+
+</section>

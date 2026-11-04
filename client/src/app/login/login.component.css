@@ -1,0 +1,77 @@
+
+.login-page {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  color: #167a79;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+h1 {
+  margin: 10px 0;
+  color: #1a3346;
+}
+
+p {
+  color: #637787;
+  line-height: 1.6;
+}
+
+.login-card {
+  margin-top: 22px;
+  padding: 25px;
+  background: #f5fbf9;
+  border: 1px solid #dceae7;
+  border-radius: 16px;
+}
+
+label {
+  display: block;
+  margin: 14px 0 7px;
+  color: #234457;
+  font-weight: 700;
+}
+
+input {
+  display: block;
+  width: 100%;
+  border: 1px solid #cadadc;
+  border-radius: 9px;
+  padding: 12px;
+  background: white;
+}
+
+button {
+  margin-top: 20px;
+  border: none;
+  border-radius: 9px;
+  background: #167a79;
+  color: #fff;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.demo-note {
+  margin: 18px 0 0;
+  font-size: 12px;
+}
+
+.notice {
+  padding: 12px;
+  border-radius: 10px;
+}
+
+.notice-error {
+  color: #8d2d38;
+  background: #fff0f0;
+}

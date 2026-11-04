@@ -1,67 +1,236 @@
-<div class="container">
-  <div [ngStyle]="msgStyle" [hidden]="hideMsg">
-    {{message}}
-  </div>
-  <h1>Book Form</h1>
-  <button (click)="addAuthor()" class="btn btn-primary">Add Author</button>
-  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
-    <div class="mb-3">
-      <label for="category">Category:</label>
-      <input type="text" class="form-control" id="category" formControlName="category">
-      <div [hidden]="category.pristine || category.valid"
-           class="alert alert-danger">
-        Category is required to be <b>Kids</b>, <b>Tech</b> or <b>Cook</b>
+
+<section class="admin-page">
+
+  <span class="eyebrow">
+    ESPACE ADMINISTRATION
+  </span>
+
+  <h1>Ajouter un livre</h1>
+
+  <p>
+    Renseignez les informations du livre.
+    Les données seront enregistrées par l'API REST.
+  </p>
+
+  <!-- Message de confirmation ou d'erreur -->
+
+  <p
+    *ngIf="message"
+    class="notice"
+    [class.notice-error]="messageType === 'error'"
+    role="status"
+  >
+    {{ message }}
+  </p>
+
+  <form
+    class="admin-form"
+    [formGroup]="bookForm"
+    (ngSubmit)="onSubmit()"
+  >
+
+    <!-- Catégorie -->
+
+    <label for="category">
+      Catégorie <span>*</span>
+    </label>
+
+    <select
+      id="category"
+      formControlName="category"
+    >
+      <option value="">Choisir une catégorie</option>
+      <option value="Kids">Enfants</option>
+      <option value="Tech">Technologie</option>
+      <option value="Cook">Cuisine</option>
+    </select>
+
+    <small
+      *ngIf="category.invalid && category.touched"
+      class="field-error"
+    >
+      Sélectionnez une catégorie.
+    </small>
+
+    <!-- Titre -->
+
+    <label for="title">
+      Titre du livre <span>*</span>
+    </label>
+
+    <input
+      id="title"
+      type="text"
+      formControlName="title"
+      placeholder="Titre du livre"
+    >
+
+    <small
+      *ngIf="title.invalid && title.touched"
+      class="field-error"
+    >
+      Le titre est obligatoire.
+    </small>
+
+    <!-- Prix -->
+
+    <label for="cost">
+      Prix ($) <span>*</span>
+    </label>
+
+    <input
+      id="cost"
+      type="number"
+      min="0"
+      step="0.01"
+      formControlName="cost"
+      placeholder="Exemple : 19.99"
+    >
+
+    <small
+      *ngIf="cost.invalid && cost.touched"
+      class="field-error"
+    >
+      Entrez un prix valide
+      (deux décimales maximum).
+    </small>
+
+    <!-- Année -->
+
+    <label for="year">
+      Année de publication <span>*</span>
+    </label>
+
+    <input
+      id="year"
+      type="number"
+      min="1"
+      step="1"
+      formControlName="year"
+      placeholder="Exemple : 2024"
+    >
+
+    <small
+      *ngIf="
+        bookForm.get('year')?.invalid &&
+        bookForm.get('year')?.touched
+      "
+      class="field-error"
+    >
+      Entrez une année valide.
+    </small>
+
+    <!-- Description -->
+
+    <label for="description">
+      Description <span>*</span>
+    </label>
+
+    <textarea
+      id="description"
+      rows="4"
+      formControlName="description"
+      placeholder="Description du livre"
+    ></textarea>
+
+    <small
+      *ngIf="
+        bookForm.get('description')?.invalid &&
+        bookForm.get('description')?.touched
+      "
+      class="field-error"
+    >
+      La description est obligatoire.
+    </small>
+
+    <!-- Auteurs -->
+
+    <div class="author-section">
+
+      <div class="author-section-head">
+
+        <h2>Auteurs (facultatif)</h2>
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="addAuthor()"
+        >
+          + Ajouter un auteur
+        </button>
+
       </div>
-    </div>
-    <div class="mb-3">
-      <label for="title">Title:</label>
-      <input type="text" class="form-control" id="title" required formControlName="title">
-      <div [hidden]="title.pristine || title.valid"
-           class="alert alert-danger">
-        Title is required.
-      </div>
-    </div>
-    <div class="mb-3">
-      <label for="cost">Cost:</label>
-      <input type="text" class="form-control" id="cost" required pattern="\d+(.\d{1,2})?" formControlName="cost">
-      <div [hidden]="cost.pristine || cost.valid"
-           class="alert alert-danger">
-        Cost should be a number with two optional decimals
-      </div>
-    </div>
-    <div formArrayName="authors">
-      <div *ngFor="let _ of authors.controls; let i=index">
-        <ng-container [formGroupName]="i">
-          <div class="row g-lg-5 align-items-center">
-            <div class="col-auto">
-              <label for="authName" class="col-form-label">Author First Name:</label>
-            </div>
-            <div class="col-auto">
-              <input id="authName" class="form-control" formControlName="firstName" type="text">
-            </div>
+
+      <div formArrayName="authors">
+
+        <div
+          class="author-row"
+          *ngFor="
+            let control of authors.controls;
+            let i = index
+          "
+          [formGroupName]="i"
+        >
+
+          <div>
+            <label [for]="'firstName' + i">
+              Prénom
+            </label>
+
+            <input
+              [id]="'firstName' + i"
+              formControlName="firstName"
+              type="text"
+              placeholder="Prénom"
+            >
           </div>
-          <div class="row g-lg-5 align-items-center">
-            <div class="col-auto">
-              <label for="authLName" class="col-form-label">Author Last Name:</label>
-            </div>
-            <div class="col-auto">
-              <input id="authLName" class="form-control" formControlName="lastName" type="text">
-            </div>
-            <div class="col-auto">
-              <button class="btn btn-dark form-control" (click)="removeAuthor(i)">X</button>
-            </div>
+
+          <div>
+            <label [for]="'lastName' + i">
+              Nom
+            </label>
+
+            <input
+              [id]="'lastName' + i"
+              formControlName="lastName"
+              type="text"
+              placeholder="Nom de famille"
+            >
           </div>
-        </ng-container>
+
+          <button
+            type="button"
+            class="remove-button"
+            (click)="removeAuthor(i)"
+            aria-label="Retirer cet auteur"
+          >
+            Retirer
+          </button>
+
+        </div>
+
       </div>
+
+      <p class="helper">
+        Si l'auteur existe déjà, il sera associé
+        au nouveau livre. Sinon, il sera créé.
+      </p>
+
     </div>
-    <div class="mb-3">
-      <label for="year">Year:</label>
-      <input type="text" class="form-control" id="year" formControlName="year">
-    </div>
-    <div class="mb-3">
-      <label for="description">Description:</label>
-      <textarea cols="40" class="form-control" id="description" formControlName="description"></textarea>
-    </div>
-    <button type="submit" class="btn btn-success" [disabled]="bookForm.invalid">Submit</button>
+
+    <!-- Soumission -->
+
+    <button
+      type="submit"
+      class="submit-button"
+      [disabled]="bookForm.invalid || isSubmitting"
+    >
+      {{ isSubmitting
+        ? 'Enregistrement...'
+        : 'Enregistrer le livre'
+      }}
+    </button>
+
   </form>
-</div>
+
+</section>

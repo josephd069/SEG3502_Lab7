@@ -1,11 +1,44 @@
-<div>
-  <h2>Search our Book Collection</h2>
-  <div>
-    <label for="id">Book Id:</label>
-    <input type="text" #bookQuery id="id">
-    <button (click)="submit(bookQuery.value)">Search</button>
-  </div>
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>
-</div>
+
+<section class="books-page">
+
+  <span class="eyebrow">CATALOGUE</span>
+
+  <h1>Rechercher un livre</h1>
+
+  <p>
+    Saisissez l'identifiant d'un livre
+    pour consulter ses informations.
+  </p>
+
+  <form
+    class="book-search"
+    (ngSubmit)="submit(bookQuery.value)"
+  >
+
+    <label for="bookId">
+      Identifiant du livre
+    </label>
+
+    <div class="search-row">
+
+      <input
+        id="bookId"
+        #bookQuery
+        type="number"
+        min="1"
+        step="1"
+        required
+        placeholder="Exemple : 1"
+      >
+
+      <button type="submit">
+        Rechercher
+      </button>
+
+    </div>
+
+  </form>
+
+  <router-outlet></router-outlet>
+
+</section>

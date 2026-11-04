@@ -176,3 +176,9 @@
     padding: 18px;
   }
 }
+
+.nav-links a.is-active {
+  color: #0e6766;
+  background: #e5f5f2;
+}
+
