@@ -1,76 +1,140 @@
 
-<div class="container py-4">
+<section class="authors-page">
 
-  <h2 class="mb-3">Recherche d'auteurs</h2>
+  <header class="authors-heading">
+    <span class="eyebrow">ANNUAIRE DES AUTEURS</span>
 
-  <p class="text-muted">
-    Entrez l'identifiant d'un auteur pour consulter ses informations.
-  </p>
+    <h1>Recherche d'auteurs</h1>
 
-  <form
-    (ngSubmit)="searchAuthor(authorId.value)"
-    class="mb-4"
-  >
-    <div class="mb-3">
-      <label for="authorId" class="form-label">
-        ID de l'auteur
+    <p>
+      Entrez un identifiant pour consulter la fiche
+      d'un auteur enregistré dans la bibliothèque.
+    </p>
+  </header>
+
+  <!-- Formulaire de recherche -->
+
+  <div class="search-card">
+
+    <form (ngSubmit)="searchAuthor(authorId.value)">
+
+      <label for="authorId">
+        Identifiant de l'auteur
       </label>
 
-      <input
-        type="number"
-        id="authorId"
-        #authorId
-        class="form-control"
-        min="1"
-        required
-        placeholder="Exemple : 1"
-      />
-    </div>
+      <div class="search-row">
 
-    <button type="submit" class="btn btn-primary">
-      Rechercher
-    </button>
-  </form>
+        <input
+          id="authorId"
+          type="number"
+          #authorId
+          min="1"
+          step="1"
+          required
+          placeholder="Exemple : 1"
+          autocomplete="off"
+        />
 
-  <div *ngIf="loading" class="alert alert-info">
+        <button
+          type="submit"
+          [disabled]="loading"
+        >
+          {{ loading ? 'Recherche...' : 'Rechercher' }}
+        </button>
+
+      </div>
+
+      <p class="search-hint">
+        Utilisez un identifiant numérique positif.
+      </p>
+
+    </form>
+
+  </div>
+
+  <!-- Message de chargement -->
+
+  <p
+    *ngIf="loading"
+    class="notice notice-info"
+    role="status"
+  >
     Recherche en cours...
-  </div>
+  </p>
 
-  <div *ngIf="errorMessage" class="alert alert-danger">
+  <!-- Message d'erreur -->
+
+  <p
+    *ngIf="errorMessage"
+    class="notice notice-error"
+    role="alert"
+  >
     {{ errorMessage }}
-  </div>
+  </p>
 
-  <div *ngIf="author as selected" class="card shadow-sm">
+  <!-- Fiche de l'auteur -->
 
-    <div class="card-header bg-primary text-white">
-      Informations de l'auteur
-    </div>
+  <article
+    *ngIf="author as selected"
+    class="author-card"
+  >
 
-    <div class="card-body">
+    <div class="author-banner">
 
-      <p><strong>ID :</strong> {{ selected.id }}</p>
+      <span class="author-avatar">
+        {{ selected.firstName.charAt(0) }}{{ selected.lastName.charAt(0) }}
+      </span>
 
-      <p>
-        <strong>Prénom :</strong>
-        {{ selected.firstName }}
-      </p>
+      <div>
+        <span class="record-label">
+          FICHE AUTEUR · ID {{ selected.id }}
+        </span>
 
-      <p>
-        <strong>Nom :</strong>
-        {{ selected.lastName }}
-      </p>
-
-      <div *ngIf="selected.books?.length">
-        <h5>Livres associés</h5>
-
-        <ul>
-          <li *ngFor="let book of selected.books">
-            {{ book.title }}
-          </li>
-        </ul>
+        <h2>
+          {{ selected.firstName }} {{ selected.lastName }}
+        </h2>
       </div>
 
     </div>
-  </div>
 
-</div>
+    <!-- Informations de l'auteur -->
+
+    <div class="author-details">
+
+      <div>
+        <span>Identifiant</span>
+        <strong>{{ selected.id }}</strong>
+      </div>
+
+      <div>
+        <span>Prénom</span>
+        <strong>{{ selected.firstName }}</strong>
+      </div>
+
+      <div>
+        <span>Nom</span>
+        <strong>{{ selected.lastName }}</strong>
+      </div>
+
+    </div>
+
+    <!-- Livres associés -->
+
+    <div
+      class="related-books"
+      *ngIf="selected.books?.length"
+    >
+
+      <h3>Livres associés</h3>
+
+      <ul>
+        <li *ngFor="let book of selected.books">
+          {{ book.title }}
+        </li>
+      </ul>
+
+    </div>
+
+  </article>
+
+</section>

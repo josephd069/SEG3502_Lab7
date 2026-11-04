@@ -1,26 +1,59 @@
-<div class="container">
-  <div class="nav-link">
-    <a [routerLink]="['/home']"> Home </a>
-    <a [routerLink]="['/about']"> About Us </a>
-    <a [routerLink]="['/contact']"> Contact Us </a>
-    <a [routerLink]="['/books']"> Books </a>
-    <a [routerLink]="['/authors']"> Authors </a>
-    <a [routerLink]="['/login']"> Login </a>
-    <a [routerLink]="['/admin']"> Admin </a>
-  </div>
-</div>
 
-<div class="container-fluid" >
-  <div class="row">
-    <div class="col-3">
-      <img src="gobooks.jpg" height="150" width="175"/>
-    </div>
-    <div class="col-6">
+<div class="site-shell">
+
+  <header class="topbar">
+
+    <a
+      class="brand"
+      [routerLink]="['/home']"
+      aria-label="YAMAZONE - Accueil"
+    >
+      <span class="brand-symbol">Y</span>
+
+      <span>
+        <strong>YAMAZONE</strong>
+        <small>Bibliothèque numérique</small>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a [routerLink]="['/home']">Accueil</a>
+      <a [routerLink]="['/about']">À propos</a>
+      <a [routerLink]="['/contact']">Contact</a>
+      <a [routerLink]="['/books']">Livres</a>
+      <a [routerLink]="['/authors']">Authors</a>
+      <a [routerLink]="['/login']">Connexion</a>
+      <a [routerLink]="['/admin']">Administration</a>
+    </nav>
+
+  </header>
+
+  <main class="page-grid">
+
+    <aside class="side-card" aria-label="Collection de livres">
+      <img
+        src="gobooks.jpg"
+        alt="Livres de la bibliothèque"
+      />
+      <span>Explorez la collection</span>
+    </aside>
+
+    <section class="main-panel">
       <router-outlet></router-outlet>
-    </div>
-    <div class="col-3">
-      <img src="1books2-med.jpg" height="150" width="175"/>
-    </div>
-  </div>
-</div>
+    </section>
 
+    <aside class="side-card" aria-label="Découverte littéraire">
+      <img
+        src="1books2-med.jpg"
+        alt="Livres et lecture"
+      />
+      <span>Découvrez nos auteurs</span>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    SEG 3502 · Laboratoire 7 · Angular et API REST Spring Boot
+  </footer>
+
+</div>

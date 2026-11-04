@@ -11,7 +11,8 @@ import { BooksService } from '../books/service/books.service';
     selector: 'app-authors',
     standalone: true,
     imports: [CommonModule, FormsModule],
-    templateUrl: './authors.component.html'
+    templateUrl: './authors.component.html',
+    styleUrls: ['./authors.component.css']
 })
 export class AuthorsComponent {
 

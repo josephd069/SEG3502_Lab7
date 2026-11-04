@@ -1,0 +1,34 @@
+
+.welcome-panel {
+  padding: 55px 15px;
+  text-align: center;
+}
+
+.welcome-label {
+  color: #147c79;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.welcome-panel h1 {
+  margin: 14px 0;
+  color: #193349;
+  font-size: clamp(27px, 3vw, 37px);
+  font-weight: 800;
+}
+
+.welcome-panel p {
+  max-width: 540px;
+  margin: 0 auto 24px;
+  color: #5d7282;
+  line-height: 1.8;
+}
+
+.welcome-note {
+  padding: 15px;
+  border-radius: 12px;
+  background: #e9f7f3;
+  color: #215c5b;
+  font-size: 14px;
+}
